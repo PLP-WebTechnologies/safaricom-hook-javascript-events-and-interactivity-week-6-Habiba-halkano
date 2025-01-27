@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- interactive button with onclick -->
+<body id="body" style="background-color: black;">
+
+    <button id="toggleButton">Click me to change color</button>
+
+<!-- slider with real-time feedback -->
+    <input type="range" min="10" max="50" value="20" class="slider" id="myRange">
+    <p id="sliderText">Slider with Real-Time Feedback (oninput): Add a slider that adjusts the size of a paragraph text dynamically.</p>
+
+<!-- modal creation -->
+    <button id="openModal">Open Modal</button>
+    <div id="modal" style="display: none;">
+            <h1>Modal Title</h1>
+            <p>Modal Content</p>
+            <button id="closeModal">Close Modal</button>
+        </div>
+
+
+
+<!-- FORM CREATION -->
+ <form id="myForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" min="3" required>
+    <span class="error" id="nameError"></span><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <span class="error" id="emailError"></span><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" min="8" required>
+    <span class="error" id="passwordError"></span><br><br>
+
+    <label for="dropdown">Select an option:</label>
+        <select id="dropdown">
+            <option value="">--Select--</option>
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+        </select>
+        <p id="dropdownMessage"></p>
+        <br><br>
+
+        <button type="submit">Submit</button>
+ </form>
+
+
+
+<!-- scripts for the above html code respectively -->
+    <script>
+        const button = document.getElementById('toggleButton');
+        const body = document.getElementById('body');
+        button.onclick = function() {
+            if (body.style.backgroundColor === 'black') {
+                body.style.backgroundColor = 'white';
+            } else {
+                body.style.backgroundColor = 'black';
+            }
+        }
+    </script>
+
+    <script>
+        const slider = document.getElementById('myRange');
+        const sliderText = document.getElementById('sliderText');
+        slider.oninput = function() {
+            sliderText.style.fontSize = `${slider.value}px`;
+        }
+    </script>
+
+    <script>
+        const openModal = document.getElementById('openModal');
+        const modal = document.getElementById('modal');
+        const closeModal = document.getElementById('closeModal');
+        openModal.onclick = function() {
+            modal.style.display = 'block';
+        }
+        closeModal.onclick = function() {
+            modal.style.display = 'none';
+        }
+    </script>
+
+<script>
+    const form = document.getElementById('userForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const dropdown = document.getElementById('dropdown');
+    const dropdownMessage = document.getElementById('dropdownMessage');
+
+    // Error spans
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+
+    // Form validation logic
+    form.addEventListener('submit', (e) => {
+        let isValid = true;
+
+        // Name validation
+        if (nameInput.value.trim().length < 3) {
+            nameError.textContent = "Name must be at least 3 characters.";
+            isValid = false;
+        } else {
+            nameError.textContent = "";
+        }
+
+        // Email validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value.trim())) {
+            emailError.textContent = "Enter a valid email address.";
+            isValid = false;
+        } else {
+            emailError.textContent = "";
+        }
+
+        // Password validation
+        const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+        if (!passwordPattern.test(passwordInput.value.trim())) {
+            passwordError.textContent = "Password must be at least 8 characters, include one uppercase letter, and one number.";
+            isValid = false;
+        } else {
+            passwordError.textContent = "";
+        }
+
+        // Prevent form submission if validation fails
+        if (!isValid) {
+            e.preventDefault();
+        }
+    });
+
+    // Dropdown onchange event
+    dropdown.addEventListener('change', () => {
+        switch (dropdown.value) {
+            case "option1":
+                dropdownMessage.textContent = "You selected Option 1.";
+                break;
+            case "option2":
+                dropdownMessage.textContent = "You selected Option 2.";
+                break;
+            case "option3":
+                dropdownMessage.textContent = "You selected Option 3.";
+                break;
+            default:
+                dropdownMessage.textContent = "";
+                break;
+        }
+    });
+</script>
+</body>
+</html>
